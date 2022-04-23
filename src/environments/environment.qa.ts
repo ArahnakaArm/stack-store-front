@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    ip: "https://qa-api.storerhub.com",
+    ip: "http://139.59.102.113:3000",
     secretKey: "F4D3E4CB521DA3D85E7D787C2D1F6",
     configS3: {
         accessKeyId: 'CRFBBW2Z3WSJTICUSNWV',
@@ -24,4 +24,4 @@ export const environment = {
         secretId: 'a97e8d161a20d0678fe0daafa9a09aae'
     },
     apiKey: "AIzaSyAu6ZiuXJNJS_pEIhgHHhu5f4KGPGIiiRU"
-};
+  };

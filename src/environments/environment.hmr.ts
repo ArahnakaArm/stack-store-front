@@ -1,6 +1,6 @@
 export const environment = {
-    production: false,
-    ip: "https://qa-api.storerhub.com",
+    production: true,
+    ip: "http://139.59.102.113:3000",
     secretKey: "F4D3E4CB521DA3D85E7D787C2D1F6",
     configS3: {
         accessKeyId: 'CRFBBW2Z3WSJTICUSNWV',
@@ -15,7 +15,7 @@ export const environment = {
         server: 'mqtt.smartwip.io',
         path: '/mqtt',
         port: 9001,
-        protocol: 'ws',
+        protocol: 'wss',
         username: 'smartwip',
         password: 'a1e8e5abf97448b08a6ea780b3f77422'
     },
@@ -24,4 +24,4 @@ export const environment = {
         secretId: 'a97e8d161a20d0678fe0daafa9a09aae'
     },
     apiKey: "AIzaSyAu6ZiuXJNJS_pEIhgHHhu5f4KGPGIiiRU"
-};
+  };
