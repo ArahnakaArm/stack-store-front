@@ -1,0 +1,116 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Dashboard 2"></app-page-title>
+
+<div class="row">
+    <div class="col-md-6 col-xl-3" *ngFor="let item of statisticsData">
+        <app-widget-statistics-card2 [variant]="item.variant" [description]="item.description" [stats]="item.stats"
+            [icon]="item.icon" [progress]="item.progress" [options]="item.options"></app-widget-statistics-card2>
+    </div> <!-- end col -->
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-xl-4 col-md-12">
+        <app-ui-portlet-card cardTitle="Lifetime Sales">
+            <div class="text-center">
+                <div id="lifetime-sales">
+                    <apx-chart class="apex-charts mt-0" [series]="salesChart.series!" [chart]="salesChart.chart!"
+                        [yaxis]="salesChart.yaxis!" [legend]="salesChart.legend!" [fill]="salesChart.fill!"
+                        [colors]="salesChart.colors!" [tooltip]="salesChart.tooltip!" [xaxis]="salesChart.xaxis!"
+                        [stroke]="salesChart.stroke!">
+                    </apx-chart>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-4" *ngFor="let item of salesChartStatistics">
+                        <app-widget-chart-statistics [title]="item.title" [icon]="item.icon" [stats]="item.stats"
+                            [variant]="item.variant">
+                        </app-widget-chart-statistics>
+                    </div>
+                </div> <!-- end row -->
+
+            </div>
+        </app-ui-portlet-card>
+    </div> <!-- end col-->
+
+    <div class="col-xl-4 col-md-6">
+        <app-ui-portlet-card cardTitle="Income Amounts">
+            <div class="text-center">
+                <div id="income-amounts">
+                    <apx-chart class="apex-charts" [series]="incomeChart.series!" [chart]="incomeChart.chart!"
+                        [plotOptions]="incomeChart.plotOptions!" [colors]="incomeChart.colors!"
+                        [tooltip]="incomeChart.tooltip!" [xaxis]="incomeChart.xaxis!" [stroke]="incomeChart.stroke!">
+                    </apx-chart>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-4" *ngFor="let item of incomeChartStatistics">
+                        <app-widget-chart-statistics [title]="item.title" [icon]="item.icon" [stats]="item.stats"
+                            [variant]="item.variant">
+                        </app-widget-chart-statistics>
+                    </div>
+                </div> <!-- end row -->
+
+            </div>
+        </app-ui-portlet-card>
+    </div> <!-- end col-->
+
+    <div class="col-xl-4 col-md-6">
+        <app-ui-portlet-card cardTitle="Total Users">
+            <div class="text-center">
+                <div id="total-users">
+                    <apx-chart class="apex-charts" [series]="usersChart.series!" [chart]="usersChart.chart!"
+                        [legend]="usersChart.legend!" [colors]="usersChart.colors!"
+                        [dataLabels]="usersChart.dataLabels!" [tooltip]="usersChart.tooltip!"></apx-chart>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-4" *ngFor="let item of userChartStatistics">
+                        <app-widget-chart-statistics [title]="item.title" [icon]="item.icon" [stats]="item.stats"
+                            [variant]="item.variant">
+                        </app-widget-chart-statistics>
+                    </div>
+                </div> <!-- end row -->
+
+            </div>
+        </app-ui-portlet-card>
+    </div> <!-- end col-->
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-xl-6">
+        <app-ui-portlet-card cardTitle="Revenue By Location">
+           <!--  <app-widget-world-map mapId="world-map-markers" height="433px" width="100%" [options]="worldMapConfig">
+            </app-widget-world-map> -->
+        </app-ui-portlet-card>
+    </div> <!-- end col -->
+
+    <div class="col-xl-6">
+        <app-ui-portlet-card cardTitle="Top Selling Products">
+
+            <div class="table-responsive">
+                <table class="table table-hover table-centered mb-0">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let product of sellingProducts">
+                            <td>{{product.productName}}</td>
+                            <td>{{product.price | currency}}</td>
+                            <td>{{product.quantity | number}}</td>
+                            <td>{{product.amount | currency}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div> <!-- end table responsive-->
+        </app-ui-portlet-card>
+    </div> <!-- end col -->
+</div>
+<!-- end row -->

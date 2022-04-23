@@ -1,0 +1,238 @@
+<!-- page title -->
+<app-page-title
+  [breadcrumbItems]="pageTitle"
+  title="ผู้ใช้งานระบบทั้งหมด"
+></app-page-title>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="row mb-2">
+          <div class="col-lg-8">
+            <!--  <form class="d-flex flex-wrap align-items-center">
+                            <label for="status-select" class="me-2">Status</label>
+                            <div class="me-sm-3">
+                                <select class="form-select form-select my-1 my-lg-0" id="status-select" name="status"
+                                    [(ngModel)]="OrderStatusGroup" (change)="changeOrderStatusGroup(OrderStatusGroup)">
+                                    <option value="All">All</option>
+                                    <option value="Paid">Paid</option>
+                                    <option value="Authorization">Awaiting Authorization</option>
+                                    <option value="Failed">Payment failed</option>
+                                    <option value="COD">Cash on Delivery</option>
+                                </select>
+                            </div>
+                        </form> -->
+          </div>
+          <ngb-alert
+            [ngClass]="{ 'd-none': closedAlert, 'd-block': !closedAlert }"
+            type="{{ alert.type }}"
+            [dismissible]="false"
+            class="alert-{{ alert.type }} border-0"
+          >
+            <strong> {{ alert.headMessage }} </strong> {{ alert.message }}
+            <div style="float: right; cursor: pointer" (click)="closeAlert()">
+              X
+            </div>
+          </ngb-alert>
+
+          <div class="col-lg-12">
+            <div class="text-lg-end">
+              <button
+                (click)="goCreateUser()"
+                type="button"
+                class="btn btn-outline-info waves-effect waves-light mb-2 me-2"
+              >
+                <i class="mdi mdi-plus me-1"></i> เพิ่มผู้ใช้งานระบบ
+              </button>
+              <!--        <button type="button" class="btn btn-light waves-effect mb-2">Export</button> -->
+            </div>
+          </div>
+          <!-- end col-->
+          <div
+            class="col-12 d-flex align-items-center justify-content-center justify-content-sm-end"
+            [class.col-sm-6]=""
+          >
+            <!--    <div class="d-flex align-items-center justify-content-center justify-content-sm-end input-group">
+                            <label class="d-inline">ค้นหา:
+                                <input type="text" name="searchTerm"
+                                    class="form-control form-control-sm d-inline w-auto ms-1"
+                                    aria-controls="advanced-table">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2"><i class="mdi mdi-check"
+                                                style="color:black"></i></span>
+                                    </div>
+                            </label>
+                        </div>
+ -->
+            <div class="text-lg-end input-group w-25">
+              <input
+                type="text"
+                [(ngModel)]="searchText"
+                (keydown.enter)="onEnterSearch(searchText)"
+                name="searchTerm"
+                class="form-control form-control d-inline ms-1"
+                placeholder="พิมพ์ค้นหาแล้วกด Enter..."
+                aria-controls="advanced-table"
+              />
+              <div
+                class="input-group-append"
+                (click)="onEnterSearch(searchText)"
+              >
+                <span class="input-group-text" id="basic-addon2"
+                  ><i class="mdi mdi-magnify" style="color: black"></i
+                ></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <app-ui-preloader [display]="loading"></app-ui-preloader>
+        <!-- order table -->
+        <!-- product table -->
+        <!--      <app-advanced-table #advancedTable (handleTableLoad)="handleTableLoad($event)" [tableData]="orderList"
+                    [columns]="columns" [pagination]="true" [hasRowSelection]="true" [isSearchable]="true"
+                    (search)="searchData($event)" [isSortable]="false" tableClasses="table-centered"
+                    theadClasses="table-light">
+                </app-advanced-table> -->
+
+        <div class="table-responsive">
+          <table class="table mb-0">
+            <thead class="table-light">
+              <tr>
+                <th width="10%" class="text-center">ลำดับ</th>
+                <th width="45%">ชื่อ-นามสกุล</th>
+                <th width="15%">ประเภท</th>
+                <th width="15%" class="text-center">สถานะ</th>
+                <th width="15%">Action</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="isLoaded">
+              <tr *ngFor="let user of allUsers; index as i">
+                <td class="text-center">{{ i + 1 }}</td>
+                <td>
+                  {{ user.firstname ? user.firstname : "" }}
+                  {{ user.lastname ? user.lastname : "" }}
+                </td>
+                <td>
+                  <p *ngIf="user.user_type_id == 'GEN_USER'">ผู้ใช้งานระบบ</p>
+                  <p *ngIf="user.user_type_id == 'ADMIN'">ผู้ดูแลระบบ</p>
+                  <p *ngIf="user.user_type_id == 'SUPER_ADMIN'">
+                    ผู้ดูแลระบบสูงสุด
+                  </p>
+                </td>
+                <td class="text-center">
+                  <div
+                    *ngIf="user.user_state_id == 'ACTIVED'"
+                    class="rounded-pill user-status-active"
+                  >
+                    <p class="ml-2 mr-2 mb-0 text-center text-white">ใช้งาน</p>
+                  </div>
+                  <div
+                    *ngIf="user.user_state_id == 'DEACTIVED'"
+                    class="rounded-pill user-status-inactive"
+                  >
+                    <p class="ml-2 mr-2 mb-0 text-center text-white">
+                      ระงับการใช้งาน
+                    </p>
+                  </div>
+                </td>
+                <td class="px-4">
+                  <div *ngIf="loggedInUser.user_type_id == 'ADMIN'">
+                    <div
+                      *ngIf="
+                        user.user_state_id == 'ACTIVED' &&
+                        loggedInUser.user_type_id == 'ADMIN' &&
+                        user.user_type_id == 'GEN_USER'
+                      "
+                      (click)="deactiveUser(user.user_id)"
+                      class="rounded suspend-user-button d-flex justify-content-center w-100 mb-2"
+                    >
+                      <i class="mdi mdi-lock" style="color: white"></i>
+                      <p class="ml-2 mb-0 text-center text-white">
+                        ระงับการใช้งาน
+                      </p>
+                    </div>
+                  </div>
+
+                  <div *ngIf="loggedInUser.user_type_id == 'SUPER_ADMIN'">
+                    <div
+                      *ngIf="user.user_state_id == 'ACTIVED'"
+                      (click)="deactiveUser(user.user_id)"
+                      class="rounded suspend-user-button d-flex justify-content-center w-100 mb-2"
+                    >
+                      <i class="mdi mdi-lock" style="color: white"></i>
+                      <p class="ml-2 mb-0 text-center text-white">
+                        ระงับการใช้งาน
+                      </p>
+                    </div>
+                  </div>
+
+                  <div *ngIf="loggedInUser.user_type_id == 'ADMIN'">
+                    <div
+                      *ngIf="
+                        user.user_state_id == 'DEACTIVED' &&
+                        loggedInUser.user_type_id == 'ADMIN' &&
+                        user.user_type_id == 'GEN_USER'
+                      "
+                      (click)="activeUser(user.user_id)"
+                      class="rounded unsuspend-user-button d-flex justify-content-center w-100 mb-2"
+                    >
+                      <i class="mdi mdi-check" style="color: white"></i>
+                      <p class="ml-2 mb-0 text-center text-white">
+                        เปิดการใช้งาน
+                      </p>
+                    </div>
+                  </div>
+
+                  <div *ngIf="loggedInUser.user_type_id == 'SUPER_ADMIN'">
+                    <div
+                      *ngIf="user.user_state_id == 'DEACTIVED'"
+                      (click)="activeUser(user.user_id)"
+                      class="rounded unsuspend-user-button d-flex justify-content-center w-100 mb-2"
+                    >
+                      <i class="mdi mdi-check" style="color: white"></i>
+                      <p class="ml-2 mb-0 text-center text-white">
+                        เปิดการใช้งาน
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    (click)="goEditUser(user.user_id)"
+                    class="rounded edit-user-button d-flex justify-content-center w-100"
+                  >
+                    <i class="mdi mdi-pencil" style="color: white"></i>
+                    <p class="ml-2 mb-0 text-center text-white">แก้ไข</p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div
+            class="d-flex flex-wrap justify-content-center align-items-center justify-content-md-between mt-2"
+          >
+            <div>
+              Showing {{ startIndex }} to {{ endIndex }} of
+              {{ totalRecords }} entries
+            </div>
+            <ngb-pagination
+              class="pagination-rounded custom-pagination"
+              [collectionSize]="totalRecords"
+              [(page)]="page"
+              [maxSize]="pageSize"
+              [rotate]="true"
+              [pageSize]="pageSize"
+              (pageChange)="paginate()"
+            >
+            </ngb-pagination>
+          </div>
+        </div>
+      </div>
+      <!-- end card-body-->
+    </div>
+    <!-- end card-->
+  </div>
+  <!-- end col -->
+</div>
+<!-- end row -->

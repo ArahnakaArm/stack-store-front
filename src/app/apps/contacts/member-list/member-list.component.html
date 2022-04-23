@@ -1,0 +1,120 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Contacts List"></app-page-title>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row justify-content-between">
+                    <div class="col-md-8">
+                        <form class="d-flex flex-wrap align-items-center">
+                            <label for="inputPassword2" class="visually-hidden">Search</label>
+                            <div class="me-3">
+                                <input type="search" class="form-control my-1 my-md-0" id="inputPassword2" name="search"
+                                    placeholder="Search..." [(ngModel)]="searchTerm"
+                                    (ngModelChange)="searchData($event)">
+                            </div>
+                            <label for="status-select" class="me-2">Sort By</label>
+                            <div class="me-sm-3">
+                                <select class="form-select my-1 my-md-0" id="status-select">
+                                    <option selected="">All</option>
+                                    <option value="1">Name</option>
+                                    <option value="2">Post</option>
+                                    <option value="3">Followers</option>
+                                    <option value="4">Followings</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-md-end mt-3 mt-md-0">
+                            <button type="button" class="btn btn-success waves-effect waves-light me-1"><i
+                                    class="mdi mdi-cog"></i></button>
+                            <button type="button" class="btn btn-danger waves-effect waves-light"
+                                (click)="openModal()"><i class="mdi mdi-plus-circle me-1"></i> Add New</button>
+                        </div>
+                    </div><!-- end col-->
+                </div> <!-- end row -->
+            </div>
+        </div> <!-- end card -->
+    </div><!-- end col-->
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-lg-4" *ngFor="let member of memberList">
+
+        <app-contact-member-info [member]="member"></app-contact-member-info>
+
+    </div>
+    <!-- end col -->
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-12">
+        <div class="text-end">
+            <ngb-pagination [collectionSize]="50" [(page)]="page" class="pagination-rounded d-flex justify-content-end">
+            </ngb-pagination>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+
+<!-- Modal -->
+<ng-template #content let-modal>
+    <div class="modal-header bg-light">
+        <h4 class="modal-title" id="myCenterModalLabel">Add New Customers</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('')"></button>
+    </div>
+    <div class="modal-body p-4">
+        <form [formGroup]="newCustomer" #addCustomer="ngForm">
+            <div class="mb-3">
+                <label for="name" class="form-label"> Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter full name" required
+                    formControlName="name" [ngClass]="{ 'is-invalid': addCustomer.submitted && form1.name.invalid }">
+                <div *ngIf="addCustomer.submitted && form1.name.invalid " class="invalid-feedback">
+                    Please provide name
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="position" class="form-label">Position</label>
+                <input type="text" class="form-control" id="position" placeholder="Enter position" required
+                    formControlName="position"
+                    [ngClass]="{ 'is-invalid': addCustomer.submitted && form1.position.invalid }">
+
+                <div *ngIf="addCustomer.submitted && form1.position.invalid " class="invalid-feedback">
+                    Please provide position
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Company</label>
+                <input type="text" class="form-control" id="company" placeholder="Enter Company" required
+                    formControlName="company"
+                    [ngClass]="{ 'is-invalid': addCustomer.submitted && form1.company.invalid }">
+
+                <div *ngIf="addCustomer.submitted && form1.company.invalid " class="invalid-feedback">
+                    Please provide company
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" required
+                    formControlName="email" [ngClass]="{ 'is-invalid': addCustomer.submitted && form1.email.invalid }">
+
+                <div *ngIf="addCustomer.submitted && form1.email.invalid " class="invalid-feedback">
+                    Please provide valid email
+                </div>
+            </div>
+
+
+            <div class="text-end">
+                <button type="submit" class="btn btn-success waves-effect waves-light me-1">Save</button>
+                <button type="button" class="btn btn-danger waves-effect waves-light"
+                    (click)="modal.close('')">Continue</button>
+            </div>
+        </form>
+    </div>
+</ng-template>

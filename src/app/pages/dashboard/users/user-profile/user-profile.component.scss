@@ -1,0 +1,93 @@
+.suspend-user-button {
+    background-color: #FF976A !important;
+    cursor: pointer;
+}
+.unsuspend-user-button {
+    background-color: #16D39A !important;
+    cursor: pointer;
+}
+.edit-user-button {
+    background-color: #00A5A8  !important;
+    cursor: pointer;
+}
+
+.user-status-active {
+    background-color: #16D39A  !important;
+    display: inline-block;
+}
+
+.user-status-inactive {
+    background-color: #404E67  !important;
+    display: inline-block;
+}
+
+.alert-success{
+    background-color:#16D39A  !important ;
+}
+
+.suspend-user-button:hover{
+    opacity: 0.9;
+}
+
+.edit-user-button:hover{
+    opacity: 0.9;
+}
+
+.ml-2 {
+    margin-left: 0.5rem !important;
+}
+
+.mr-2 {
+    margin-right: 0.5rem !important;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem !important;
+}
+
+.px-4 {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+
+.py-1 {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+}
+.transparent-style{
+    background-color: rgba(255, 255, 255, .4);
+}
+
+input:disabled {
+    background: #dddddd;
+}
+
+.create-edit-user-button {
+    background-color: #00A5A8 !important;
+    cursor: pointer;
+}
+.create-edit-user-button :hover{
+    opacity: 0.9;
+}
+
+.exit-button {
+    background-color: #FF976A  !important;
+    cursor: pointer;
+}
+.exit-button :hover{
+    opacity: 0.9;
+}
+
+.reset-pass-text{
+    font-size: 12px; 
+}
+
+.reset-pass-button {
+    background-color: #404E67  !important;
+    cursor: pointer;
+    height: 20px;
+}
+
+.reset-pass-button:hover{
+    opacity: 0.9;
+}

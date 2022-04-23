@@ -1,0 +1,179 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="Dashboard 4"></app-page-title>
+
+<div class="row">
+    <div class="col-xl-4 col-md-6">
+
+        <app-ui-portlet-card cardTitle="Lifetime Sales">
+            <div class="text-center">
+                <div class="row mt-2">
+                    <div class="col-4">
+                        <app-widget-statistics [stats]="3487" label="Total Sales"
+                            labelCssClasses="font-13 text-truncate">
+                        </app-widget-statistics>
+
+                    </div>
+                    <div class="col-4">
+                        <app-widget-statistics [stats]="814" label="Open Campaign"
+                            labelCssClasses="font-13 text-truncate">
+                        </app-widget-statistics>
+
+                    </div>
+                    <div class="col-4">
+                        <app-widget-statistics [stats]="5324" label="Daily Sales"
+                            labelCssClasses="font-13 text-truncate">
+                        </app-widget-statistics>
+
+                    </div>
+                </div> <!-- end row -->
+
+                <div dir="ltr">
+                    <div id="lifetime-sales" class="mt-4">
+                        <apx-chart class="apex-charts" [series]="salesChart.series!" [chart]="salesChart.chart!"
+                            [plotOptions]="salesChart.plotOptions!" [colors]="salesChart.colors!"
+                            [labels]="salesChart.labels!" [legend]="salesChart.legend!" [states]="salesChart.states!"
+                            [dataLabels]="salesChart.dataLabels!" [tooltip]="salesChart.tooltip!"></apx-chart>
+                    </div>
+                </div>
+            </div>
+        </app-ui-portlet-card>
+
+    </div> <!-- end col-->
+    <div class="col-xl-4 col-md-6">
+
+        <app-ui-portlet-card cardTitle="Statistics">
+            <div class="text-center">
+                <div class="row mt-2">
+                    <div class="col-6">
+                        <app-widget-statistics [stats]="1284" label="Total Sales"
+                            labelCssClasses="font-13 text-truncate">
+                        </app-widget-statistics>
+
+                    </div>
+                    <div class="col-6">
+                        <app-widget-statistics [stats]="7841" label="Open Campaign"
+                            labelCssClasses="font-13 text-truncate">
+                        </app-widget-statistics>
+
+                    </div>
+
+                </div> <!-- end row -->
+
+                <div dir="ltr">
+                    <div id="statistics">
+                        <apx-chart class="apex-charts" [series]="statisticsChart.series!"
+                            [chart]="statisticsChart.chart!" [plotOptions]="statisticsChart.plotOptions!"
+                            [colors]="statisticsChart.colors!" [xaxis]="statisticsChart.xaxis!"
+                            [dataLabels]="statisticsChart.dataLabels!"></apx-chart>
+
+                    </div>
+                </div>
+
+            </div>
+        </app-ui-portlet-card>
+
+    </div> <!-- end col-->
+    <div class="col-xl-4 col-md-12">
+
+        <app-ui-portlet-card cardTitle="Income Amounts">
+            <div class="text-center">
+                <div class="row mt-2">
+                    <div class="col-4">
+                        <app-widget-statistics [stats]="2845" label="Total Sales"
+                            labelCssClasses="font-13 text-truncate">
+                        </app-widget-statistics>
+
+                    </div>
+                    <div class="col-4">
+                        <app-widget-statistics [stats]="6487" label="Open Campaign"
+                            labelCssClasses="font-13 text-truncate">
+                        </app-widget-statistics>
+
+                    </div>
+                    <div class="col-4">
+                        <app-widget-statistics [stats]="201" label="Daily Sales"
+                            labelCssClasses="font-13 text-truncate">
+                        </app-widget-statistics>
+
+                    </div>
+
+                </div> <!-- end row -->
+
+                <div dir="ltr">
+                    <div id="income-amounts">
+                        <apx-chart class="apex-charts" [series]="incomeChart.series!" [chart]="incomeChart.chart!"
+                            [stroke]="incomeChart.stroke!" [colors]="incomeChart.colors!" [fill]="incomeChart.fill!"
+                            [legend]="incomeChart.legend!" [dataLabels]="incomeChart.dataLabels!"
+                            [xaxis]="incomeChart.xaxis!" [yaxis]="incomeChart.yaxis!"></apx-chart>
+                    </div>
+                </div>
+
+            </div>
+        </app-ui-portlet-card>
+
+    </div> <!-- end col-->
+
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-md-6 col-xl-3" *ngFor="let user of users">
+        <app-widget-user-card [user]="user"></app-widget-user-card>
+    </div> <!-- end col-->
+
+</div>
+<!-- end row -->
+
+<div class="row">
+    <div class="col-12">
+        <app-ui-portlet-card cardTitle="Projects">
+            <div class="table-responsive">
+                <table class="table table-centered table-nowrap table-borderless mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Project Name</th>
+                            <th>Start Date</th>
+                            <th>Due Date</th>
+                            <th>Team</th>
+                            <th>Status</th>
+                            <th>Clients</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let project of projectsData">
+                            <td>{{project.name}}</td>
+                            <td>{{project.startDate}}</td>
+                            <td>{{project.dueDate}}</td>
+                            <td id="tooltip-container">
+                                <div class="avatar-group">
+                                    <a href="javascript: void(0);" *ngFor="let member of project.teamMembers"
+                                        class="avatar-group-item me-1" placement="top" [ngbTooltip]="member.name">
+                                        <img [src]="member.image" class="rounded-circle avatar-xs" alt="friend">
+                                    </a>
+                                </div>
+                            </td>
+                            <td>
+
+                                <span *ngIf="project.status==='Work in Progress'"
+                                    class="badge bg-soft-info text-info p-1">{{project.status}}</span>
+
+                                <span *ngIf="project.status==='Pending'"
+                                    class="badge bg-soft-warning text-warning p-1">{{project.status}}</span>
+
+                                <span *ngIf="project.status==='Completed'"
+                                    class="badge bg-soft-success text-success p-1">{{project.status}}</span>
+
+                                <span *ngIf="project.status==='Coming Soon'"
+                                    class="badge bg-soft-dark text-dark p-1">{{project.status}}</span>
+
+                            </td>
+                            <td>{{project.clients}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div> <!-- .table-responsive -->
+        </app-ui-portlet-card>
+
+    </div> <!-- end col-->
+</div>
+<!-- end row -->

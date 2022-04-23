@@ -3,9 +3,12 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "stackstore-front": {
+    "ubold-angular": {
       "projectType": "application",
       "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        },
         "@schematics/angular:application": {
           "strict": true
         }
@@ -13,21 +16,31 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "es": "src/locale/messages.es.json",
+          "en": "src/locale/messages.json"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/stackstore-front",
+            "localize": false,
+            "aot": true,
+            "outputPath": "dist/stack-store",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/assets/scss/Default.scss"
             ],
             "scripts": []
           },
@@ -36,8 +49,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -53,12 +66,22 @@
               ],
               "outputHashing": "all"
             },
+            "es": {
+              "localize": [
+                "es"
+              ]
+            },
+            "en": {
+              "localize": [
+                "en-US"
+              ]
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true,
+              "sourceMap": false,
               "namedChunks": true
             }
           },
@@ -68,10 +91,16 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "stackstore-front:build:production"
+              "browserTarget": "ubold-angular:build:production"
             },
             "development": {
-              "browserTarget": "stackstore-front:build:development"
+              "browserTarget": "ubold-angular:build:development"
+            },
+            "es": {
+              "browserTarget": "ubold-angular:build:es"
+            },
+            "en": {
+              "browserTarget": "ubold-angular:build:en"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +108,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "stackstore-front:build"
+            "browserTarget": "ubold-angular:build"
           }
         },
         "test": {
@@ -89,12 +118,13 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
+            "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }
@@ -102,5 +132,5 @@
       }
     }
   },
-  "defaultProject": "stackstore-front"
+  "defaultProject": "ubold-angular"
 }

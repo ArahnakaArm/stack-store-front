@@ -1,0 +1,129 @@
+<!-- page title -->
+<app-page-title [breadcrumbItems]="pageTitle" title="ข้อมูลส่วนตัว">
+</app-page-title>
+
+<div class="row">
+  <div class="col-6">
+    <ngb-alert [ngClass]="{'d-none': closedAlert ,'d-block': !closedAlert }" type="{{alert.type}}" [dismissible]="false"
+      class="alert-{{alert.type}} border-0">
+      <strong> {{alert.headMessage}} </strong> {{alert.message}}
+      <div style="float: right;cursor: pointer;" (click)="closeAlert()">
+        X
+      </div>
+    </ngb-alert>
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="h4 mb-3 col-6">ข้อมูลส่วนตัว</div>
+        <!--   <div class="col-6 d-flex justify-content-end">
+
+            <div (click)="resetPass()" class="rounded reset-pass-button px-2 d-flex justify-content-center"
+              style="margin-top:10px">
+              <p class="mb-0 text-center text-white reset-pass-text">Reset Password</p>
+            </div>
+
+          </div> -->
+        </div>
+
+        <form name="user-form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+         
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="firstname" class="form-label" i18n>ชื่อจริง <span class="text-danger">*</span></label>
+                <input class="form-control" type="text" id="firstname" i18n-placeholder placeholder="ชื่อจริง"
+                  formControlName="firstname" [ngClass]="{
+                    'is-invalid': formSubmitted && formValues.firstname.invalid
+                  }" required />
+
+                <div *ngIf="formSubmitted && formValues.firstname.invalid" class="invalid-feedback">
+                  <div *ngIf="formValues.firstname.errors?.required" i18n>
+                    โปรดกรอกฟิลด์นี้
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="lastname" class="form-label" i18n>นามสกุล <span class="text-danger">*</span></label>
+                <input class="form-control" type="text" id="lastname" i18n-placeholder placeholder="นามสกุล"
+                  formControlName="lastname" [ngClass]="{
+                    'is-invalid': formSubmitted && formValues.lastname.invalid
+                  }" required />
+
+                <div *ngIf="formSubmitted && formValues.lastname.invalid" class="invalid-feedback">
+                  <div *ngIf="formValues.lastname.errors?.required" i18n>
+                    โปรดกรอกฟิลด์นี้
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="email" class="form-label" i18n>อีเมล์สำหรับใช้เข้าระบบ
+                  <span class="text-danger">*</span></label>
+                <input class="form-control" type="email" id="email" i18n-placeholder placeholder="อีเมล์"
+                  formControlName="email" [ngClass]="{
+                    'is-invalid': formSubmitted && formValues.email.invalid
+                  }" required />
+
+                <div *ngIf="formSubmitted && formValues.email.invalid" class="invalid-feedback">
+                  <div *ngIf="formValues.email.errors?.required" i18n>
+                    โปรดกรอกฟิลด์นี้
+                  </div>
+                  <div *ngIf="formValues.email.errors?.email" i18n>
+                    กรอกให้ถูกต้องตามรูปแบบอีเมล์ Format: john@makewell.co.th
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="phoneNumber" class="form-label" i18n>หมายเลขโทรศัพท์ <span
+                    class="text-danger">*</span></label>
+                <input class="form-control" type="text" id="phoneNumber" i18n-placeholder placeholder="หมายเลขโทรศัพท์"
+                  formControlName="phoneNumber" [ngClass]="{
+                    'is-invalid':
+                      formSubmitted && formValues.phoneNumber.invalid
+                  }" required />
+
+                <div *ngIf="formSubmitted && formValues.phoneNumber.invalid" class="invalid-feedback">
+                  <div *ngIf="formValues.phoneNumber.errors?.required" i18n>
+                    โปรดกรอกฟิลด์นี้
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+     
+          <div class="row">
+            <div class="d-grid col-4">
+              <div class="exit-button rounded h-100 d-flex align-items-center py-1" type="button" (click)="onExit()"
+                i18n>
+                <div class="text-center w-100 d-flex justify-content-center">
+                  <i class="mdi mdi-close" style="color: white"></i>
+                  <p class="text-white mb-0 ml-2">ยกเลิก</p>
+                </div>
+              </div>
+            </div>
+            <div class="d-grid col-4">
+              <div class="create-edit-user-button rounded h-100 d-flex align-items-center py-1" type="button"
+                (click)="onSubmit()" i18n>
+                <div class="text-center w-100 d-flex justify-content-center">
+                  <i class="mdi mdi-check" style="color: white"></i>
+                  <p class="text-white mb-0 ml-2">บันทึก</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- end card-body-->
+    </div>
+    <!-- end card-->
+  </div>
+  <!-- end col -->
+</div>
+<!-- end row -->
