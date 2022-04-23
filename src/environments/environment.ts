@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  ip: "http://localhost:3000",
+  ip: "http://139.59.102.113:3000",
   secretKey: "F4D3E4CB521DA3D85E7D787C2D1F6",
   configS3: {
       accessKeyId: 'CRFBBW2Z3WSJTICUSNWV',
